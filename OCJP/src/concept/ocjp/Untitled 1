@@ -1,0 +1,11 @@
+Java 7 Features
+
+1. Switch Case with String -> Earlier it was with primitive and Enum.
+2. Diamond Operator - Generic reduce repetitive initialization statement -> Map<String, List<Trade>> tadeMap = new HashMap<String, ArrayList<Trade>>(); --> Map<String, List<Trade>> tadeMap = new HashMap<9>();
+3. File operation nio2 -> For file related operation. 
+4. Automatic resource management in try. -> No need resource deallocate in finally. In try() only inside braces we can put the allocated elements that needs to be deallocate.
+5. No need to write multiple catches. -> With "|" pipe sign we can put multiple catches.
+6. Numatics literals -> int a = 100000; Instead of it we can write like int a = 1_00_000; For better visibility. 
+7. File Change watcher. WhatchService
+8. ForkJoin pool and ForkJoinService.
+		
