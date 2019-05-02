@@ -92,31 +92,78 @@ public class NeighboursandNewYearParty2 {
 			
 			int[] ticketsPerHouse = fStringIntObj.stringToInt(ticketsPerHouseStr);
 			
-			int maxNumberTicket = -1;
+			int ticketMaxValue = -1;
 			for (int i : ticketsPerHouse) {
-				if(maxNumberTicket < i) {
-					maxNumberTicket = i;
+				if(ticketMaxValue < i) {
+					ticketMaxValue = i;
 				}
 			}
 
-			boolean isCombined = false;
-			int leftNumber = -1;
-			int rightNumber = -1;
-			List<List<Integer>> lastSelected = new ArrayList<>();
+			List<Integer> combineSelection = null;
 			
-			for(int i = 0; i < ticketsPerHouse.length - 2; i++) {
-				
-				lastSelected.add(selectedArray);
+			int addition = 0;
+			List<Integer> lastSelected = new ArrayList<>();
+			for(int j=0; j <= ticketsPerHouse.length - 2; j = j + 2){
+				addition = 0;
+				lastSelected = new ArrayList<>();
+				for(int i = 0; i <= j; i = i + 2) {
+					addition = ticketsPerHouse[i] + addition; 
+					lastSelected.add(ticketsPerHouse[i]);
+				}
+				if(addition > ticketMaxValue) {
+					ticketMaxValue = addition;
+					combineSelection = lastSelected;
+				}
 			}
 			
-			if(isCombined) {
-				//System.out.println(rightNumber+""+leftNumber);
-				testCaseResult[testCase] = rightNumber+""+leftNumber;
-				String s = "";
+			for(int j=1; j <= ticketsPerHouse.length - 3; j = j + 2){
+				addition = 0;
+				lastSelected = new ArrayList<>();
+				for(int i = 1; i <= j; i = i + 2) {
+					addition = ticketsPerHouse[i] + addition; 
+					lastSelected.add(ticketsPerHouse[i]);
+				}
+				if(addition > ticketMaxValue) {
+					ticketMaxValue = addition;
+					combineSelection = lastSelected;
+				}
+			}
+		
+			for(int j=ticketsPerHouse.length - 1; j >= 1; j = j - 2){
+				addition = 0;
+				lastSelected = new ArrayList<>();
+				for(int i = ticketsPerHouse.length - 1; i >= j; i = j - 2) {
+					addition = ticketsPerHouse[i] + addition; 
+					lastSelected.add(ticketsPerHouse[i]);
+				}
+				if(addition > ticketMaxValue) {
+					ticketMaxValue = addition;
+					combineSelection = lastSelected;
+				}
+			}
+			
+			for(int j=ticketsPerHouse.length - 2; j >= 2; j = j - 2){
+				addition = 0;
+				lastSelected = new ArrayList<>();
+				for(int i = ticketsPerHouse.length - 2; i >= j; i = i - 2) {
+					addition = ticketsPerHouse[i] + addition; 
+					lastSelected.add(ticketsPerHouse[i]);
+				}
+				if(addition > ticketMaxValue) {
+					ticketMaxValue = addition;
+					combineSelection = lastSelected;
+				}
+			}
+		
+			if(combineSelection != null) {
+				StringBuffer result = new StringBuffer();
+				for (int i = combineSelection.size()-1; i >= 0; i--) {
+					result.append(combineSelection.get(i)+"");
+				}
+				testCaseResult[testCase] = result.toString();
 				
 			}else {
-				//System.out.println(maxNumberTicket);
-				testCaseResult[testCase] = maxNumberTicket+"";
+				testCaseResult[testCase] = ticketMaxValue+"";
 			}
 			
 		}
