@@ -1,5 +1,6 @@
 package modelmapperexample;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Parent {
@@ -8,6 +9,7 @@ public class Parent {
 	private String middleName;
 	private String lastName;
 	private Date date;
+	private Timestamp timestampDate;
 	private int age;
 	
 	public String getFirstName() {
@@ -40,4 +42,11 @@ public class Parent {
 	public void setAge(int age) {
 		this.age = age;
 	}
+	public Timestamp getTimestampDate() {
+		return timestampDate;
+	}
+	public void setTimestampDate(Timestamp timestampDate) {
+		this.timestampDate = timestampDate;
+	}
+	
 }

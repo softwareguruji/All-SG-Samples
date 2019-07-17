@@ -1,5 +1,6 @@
 package modelmapperexample;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,7 +18,7 @@ public class ModelMapperExample {
 		Child child = new Child();
 		child.setFirstName("First");
 		child.setLastName("last");
-		//child.setDate("07/17/2019");
+		child.setDate("07/17/2019");
 		
 
 		//Option 1 direct mapping
@@ -64,6 +65,25 @@ public class ModelMapperExample {
 		  }
 		};
 		
+		//Option 4 Use Converter with timestamp
+		Converter<String, Timestamp> dateTimeStampConversion = new AbstractConverter<String, Timestamp>() {
+			  protected Timestamp convert(String dateString) {
+				  if(dateString != null) {
+					  SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+					  Date date = null;
+					  try {
+						  date = sdf.parse(dateString);
+					  } catch (ParseException e) {
+						  e.printStackTrace();
+					  }
+					  if(date != null) {
+						  return new Timestamp(date.getTime());
+					  }
+				  }
+				  return null;
+			  }
+			};
+		
 		
 		//Option 4 Create another complex converter
 		Converter<String, String> toUppercase = new AbstractConverter<String, String>() {
@@ -77,6 +97,7 @@ public class ModelMapperExample {
 			protected void configure() {
 				using(toUppercase).map().setFirstName(source.getFirstName());
 				using(dateConversion).map(source.getDate()).setDate(null);
+				using(dateTimeStampConversion).map(source.getDate()).setTimestampDate(null);
 			}
 		};
 		
@@ -87,6 +108,7 @@ public class ModelMapperExample {
 		System.out.println(parent.getLastName());
 		System.out.println(parent.getMiddleName());
 		System.out.println(parent.getDate());
+		System.out.println(parent.getTimestampDate());
 		System.out.println(parent.getAge());
 	}
 }
